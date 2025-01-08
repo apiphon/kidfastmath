@@ -4,14 +4,17 @@ algo = readfiles get in vari and del files when answer write in files.
 '''
 import random
 import os
+from turtle import title
 '''const'''
 CURRENT_DIR = os.getcwd()
-CREDIT_NAME = "Apiphol Suwanchaisakul"
-VER_NAME = "1.2.4"
+CREDIT_NAME = "made by Apiphol Suwanchaisakul. full stack dev See https://github.com/apiphon for more information. "
+COPYRIGHT_NAME = "Copyright (c) 20xx ApiphonTutor00.org."
+VER_NAME = "1.2.5"
 DATE_LAST_EDIT = "08-01-2025"
 
 def base64_encoder(plain_txt):
     '''input text output base64'''
+    os.system("title base64_encoder")
     enc_txt = ""
     base64_char = {
       '000000': 'A', '000001': 'B', '000010': 'C', '000011': 'D',
@@ -42,6 +45,7 @@ def base64_encoder(plain_txt):
 
 def base64_decoder(plain_txt):
     '''input base64 output text'''
+    os.system("title base64_decoder")
     plain_txt = plain_txt.strip('=')
     dec_txt = ""
     dec_bin = ""
@@ -79,6 +83,10 @@ def game():
         fristPara = random.randint(minRan,maxRan)
         secPara = random.randint(minRan,maxRan)
         answerPara = fristPara + secPara
+        stringMinRan = str(minRan)
+        stringMaxRan = str(maxRan)
+        STRING_FOR_TITLE = "title Plus : min = "+stringMinRan+", max = "+stringMaxRan
+        os.system(STRING_FOR_TITLE)
         print("You have played", allPlay, "times.", sep = " ")
         print("Your Score Is : ",correctAnswer)
         print("You have answered incorrectly", inCorrectAnswer, "times")
@@ -93,10 +101,10 @@ def game():
                 setDataFile(allPlay, correctAnswer, minRan, maxRan)
             elif answerInput == -1:
                 setDataFile(allPlay, correctAnswer, minRan, maxRan)
-                return "blabbbbb"
+                main()
             else:
                 allPlay += 1
-                print("Wrong Answer!!!  Correct Answer Is : ",answerPara)
+                print("Wrong Answer!!!  Correct Answer Is : ",answerPara, end ="")
                 setDataFile(allPlay, correctAnswer, minRan, maxRan)
         except:
             allPlay += 1
@@ -107,6 +115,7 @@ def game():
 def setting():
     '''now clearScore del files'''
     os.system('cls')
+    os.system("title Setup")
     print("\npress 1 to clear score\n\npress 2 to set diff min number\n\npress 3 to set diff max number \n\npress 0 to back to main menu")
     print("\n\nSel : ", end ="")
     settingInput = str(input())
@@ -121,6 +130,7 @@ def setting():
 
 def clearScore():
     '''clear score to 0'''
+    os.system("title clearScore")
     ff = open("__pcf.conf", "w")
     ff.write(base64_encoder("0,0,10,99"))
     ff.close()
@@ -130,7 +140,9 @@ def clearScore():
 def setMinNumber():
     '''set min number random'''
     os.system('cls')
+    os.system("title setMinNumber")
     tim, scr, mii, mxx = getDataFile()
+    os.system("title setMinNumber")
     print("\n** Set min number **\n")
     print("current min number is", mii)
     print("current max number is", mxx)
@@ -154,7 +166,9 @@ def setMinNumber():
 def setMaxNumber():
     '''set max number random'''
     os.system('cls')
+    os.system("title setMaxNumber")
     tim, scr, mii, mxx = getDataFile()
+    os.system("title setMaxNumber")
     print("\n** Set max number **\n")
     print("current min number is", mii)
     print("current max number is", mxx)
@@ -177,6 +191,7 @@ def setMaxNumber():
 
 def getDataFile():
     '''get data files return n of time to play, score, min random number, max random number'''
+    os.system("title getDataFile")
     if not "__pcf.conf" in os.listdir(CURRENT_DIR):
         print("Create files completely.")
         f = open("__pcf.conf", "a")
@@ -203,6 +218,7 @@ def getDataFile():
 
 def setDataFile(newTimePlay, newScore, newMinRandomNumber, newMaxRandomNumber):
     '''sent any type com=nvert to string to write files'''
+    os.system("title setDataFile")
     ff = open("__pcf.conf", "w")
     stringNewTimePlay = str(newTimePlay)
     stringNewScore = str(newScore)
@@ -212,15 +228,27 @@ def setDataFile(newTimePlay, newScore, newMinRandomNumber, newMaxRandomNumber):
     ff.write(base64_encoder(DATA_WRITE_TO_FLIE))
     ff.close()
 
+def getCredit():
+    os.system('cls')
+    os.system("title getCredit")
+    print("\n ** credit and copyright **")
+    print(CREDIT_NAME,"\n")
+    print(COPYRIGHT_NAME, "\nAll Rights Reserved.\n\n")
+    print("Press ENTER key to continue . . .")
+    _ = str(input())
+    main()
+
 def main():
     '''main'''
     os.system('cls')
+    os.system("title Welcome")
     allPlay, saveScore, minRandomNumber, maxRandomNumber = getDataFile()
     print("You play thime game",allPlay,"Times")
     print("Last score is : ",saveScore)
     print("diff min number is", minRandomNumber,"and max number is", maxRandomNumber)
-    print("Welcome to program add math.")
+    print("\nWelcome to program kid fast.")
     print("\n press 1 = Playgame\n\n press 2 = Setup\n\n press 3 = Credit\n\n press 0 = exit\n\n Sel : ",end = "")
+    os.system("title Welcome")
     modeInput = str(input())
     try:
         if modeInput == "1":
@@ -229,8 +257,7 @@ def main():
         elif modeInput == "2":
             setting()
         elif modeInput == "3":
-            print(CREDIT_NAME, VER_NAME)
-            main()
+            getCredit()
         elif modeInput == "0":
             print("bye see u again")
         else:
