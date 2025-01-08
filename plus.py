@@ -75,6 +75,7 @@ def base64_decoder(plain_txt):
 def game(correctAnswer):
     '''input score'''
     #inCorrectAnswer = allPlay - correctAnswer
+    os.system('cls')
     while True:
         fristPara = random.randint(10,99)
         secPara = random.randint(10,99)
@@ -107,6 +108,7 @@ def game(correctAnswer):
         print("\n*****************************************************************\n\n")
 
 def setting():
+    os.system('cls')
     '''now clearScore del files'''
     print("\npress 1 to clear score()\n\npress 0 to back to main menu")
     settingInput = str(input())
@@ -126,6 +128,7 @@ def clearScore():
 
 def main():
     '''main'''
+    os.system('cls')
     if not "__pcf.conf" in os.listdir(CURRENT_DIR):
         print("Create files completely.")
         f = open("__pcf.conf", "a")
@@ -153,4 +156,5 @@ def main():
         setting()
     elif modeInput == "3":
         print(CREDIT_NAME, VER_NAME)
+        main()
 main()
