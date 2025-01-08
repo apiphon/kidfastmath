@@ -3,7 +3,6 @@ play this game tan play mobile game
 algo = readfiles get in vari and del files when answer write in files.
 '''
 import random
-import hashlib
 import os
 '''const'''
 CURRENT_DIR = os.getcwd()
@@ -140,21 +139,32 @@ def main():
         DATA_LAST_RAW_FLIE = base64_decoder(DATA_LAST_RAW_FLIE_BASE64)
         fo.close()
     except:
+        print("Warning do not cheat to add score by your self.")
         clearScore()
     try:
         saveScore = int(DATA_LAST_RAW_FLIE)
     except:
+        print("Warning do not cheat to add score by your self.")
         clearScore()
     print("Last score is : ",saveScore)
     print("Welcome to program add math.")
     print("\n\n press 1 = playgame\n\n press 2 = setup\n\n press 3 = credit\n\n press 0 = exit\n\n Sel : ",end = "")
     modeInput = str(input())
-    if modeInput == "1":
-        game(saveScore)
-        #game(timeOfPlay)
-    elif modeInput == "2":
-        setting()
-    elif modeInput == "3":
-        print(CREDIT_NAME, VER_NAME)
+    try:
+        if modeInput == "1":
+            game(saveScore)
+            #game(timeOfPlay)
+        elif modeInput == "2":
+            setting()
+        elif modeInput == "3":
+            print(CREDIT_NAME, VER_NAME)
+            main()
+        elif modeInput == "0":
+            print("bye see u again")
+        else:
+            os.system('cls')
+            main()
+    except:
+        print("invalid key")
         main()
 main()
