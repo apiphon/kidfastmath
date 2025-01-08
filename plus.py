@@ -7,8 +7,8 @@ import os
 '''const'''
 CURRENT_DIR = os.getcwd()
 CREDIT_NAME = "Apiphol Suwanchaisakul"
-VER_NAME = "1.0.2"
-DATE_LAST_EDIT = "07-01-2025"
+VER_NAME = "1.2.4"
+DATE_LAST_EDIT = "08-01-2025"
 
 def base64_encoder(plain_txt):
     '''input text output base64'''
@@ -70,89 +70,155 @@ def base64_decoder(plain_txt):
         dec_txt += (chr(int(dec_bin[i*8:((i+1)*8)], 2)))
     return dec_txt
 
-#def game(allPlay)
-def game(correctAnswer):
+def game():
     '''input score'''
-    #inCorrectAnswer = allPlay - correctAnswer
     os.system('cls')
     while True:
-        fristPara = random.randint(10,99)
-        secPara = random.randint(10,99)
+        allPlay,correctAnswer,minRan,maxRan = getDataFile()
+        inCorrectAnswer = (allPlay - correctAnswer)
+        fristPara = random.randint(minRan,maxRan)
+        secPara = random.randint(minRan,maxRan)
         answerPara = fristPara + secPara
+        print("You have played", allPlay, "times.", sep = " ")
         print("Your Score Is : ",correctAnswer)
+        print("You have answered incorrectly", inCorrectAnswer, "times")
+        print("\n")
         print(fristPara,"+",secPara,"=",sep = " ", end = "")
         try:
             answerInput = float(input())
             if answerInput == answerPara:
+                allPlay += 1
                 correctAnswer += 1
-                ff = open("__pcf.conf", "w")
-                ff.write(base64_encoder(str(correctAnswer)))
-                ff.close()
                 print("Correct Answer!!!", end ="")
+                setDataFile(allPlay, correctAnswer, minRan, maxRan)
             elif answerInput == -1:
-                ff = open("__pcf.conf", "w")
-                ff.write(base64_encoder(str(correctAnswer)))
-                ff.close()
+                setDataFile(allPlay, correctAnswer, minRan, maxRan)
                 return "blabbbbb"
             else:
+                allPlay += 1
                 print("Wrong Answer!!!  Correct Answer Is : ",answerPara)
-                ff = open("__pcf.conf", "w")
-                ff.write(base64_encoder(str(correctAnswer)))
-                ff.close()
+                setDataFile(allPlay, correctAnswer, minRan, maxRan)
         except:
+            allPlay += 1
             print("Wrong Answer!!!  Correct Answer Is : ",answerPara)
-            ff = open("__pcf.conf", "w")
-            ff.write(base64_encoder(str(correctAnswer)))
-            ff.close()
+            setDataFile(allPlay, correctAnswer, minRan, maxRan)
         print("\n*****************************************************************\n\n")
 
 def setting():
-    os.system('cls')
     '''now clearScore del files'''
-    print("\npress 1 to clear score()\n\npress 0 to back to main menu")
+    os.system('cls')
+    print("\npress 1 to clear score\n\npress 2 to set diff min number\n\npress 3 to set diff max number \n\npress 0 to back to main menu")
+    print("\n\nSel : ", end ="")
     settingInput = str(input())
     if settingInput == "1":
         clearScore()
+    elif settingInput == "2":
+        setMinNumber()
+    elif settingInput == "3":
+        setMaxNumber()
     else:
         main()
 
 def clearScore():
     '''clear score to 0'''
     ff = open("__pcf.conf", "w")
-    ff.write(base64_encoder("0"))
+    ff.write(base64_encoder("0,0,10,99"))
     ff.close()
     print("Reset Score!!!")
     main()
 
-
-def main():
-    '''main'''
+def setMinNumber():
+    '''set min number random'''
     os.system('cls')
+    tim, scr, mii, mxx = getDataFile()
+    print("\n** Set min number **\n")
+    print("current min number is", mii)
+    print("current max number is", mxx)
+    print("\nEnter value for min number : ", end = "")
+    try:
+        RAW_NEW_MIN_RANDOM = int(input())
+        if RAW_NEW_MIN_RANDOM > mxx:
+            print("min number cannot larger than max number\n enter value again")
+            setMinNumber()
+        else:
+            newMinRandom = str(RAW_NEW_MIN_RANDOM)
+            setDataFile(tim, scr, newMinRandom, mxx)
+            setting()
+    except:
+        print("invalid key")
+        setMinNumber()
+
+def setMaxNumber():
+    '''set max number random'''
+    os.system('cls')
+    tim, scr, mii, mxx = getDataFile()
+    print("\n** Set max number **\n")
+    print("current min number is", mii)
+    print("current max number is", mxx)
+    print("\nEnter value for max number : ", end = "")
+    try:
+        RAW_NEW_MAX_RANDOM = int(input())
+        if RAW_NEW_MAX_RANDOM < mii:
+            print("min number cannot larger than max number\n enter value again")
+            setMaxNumber()
+        else:
+            newMinRandom = str(RAW_NEW_MAX_RANDOM)
+            setDataFile(tim, scr, mii, newMinRandom)
+            setting()
+    except:
+        print("invalid key")
+        setMaxNumber()
+
+def getDataFile():
+    '''get data files return n of time to play, score, min random number, max random number'''
     if not "__pcf.conf" in os.listdir(CURRENT_DIR):
         print("Create files completely.")
         f = open("__pcf.conf", "a")
-        f.write(base64_encoder("0"))
+        f.write(base64_encoder("0,0,10,99"))
         f.close()
     fo = open("__pcf.conf", "r")
-    DATA_LAST_RAW_FLIE_BASE64 = fo.read()
+    DATA_LAST_RAW_FILE_BASE64 = fo.read()
     try:
-        DATA_LAST_RAW_FLIE = base64_decoder(DATA_LAST_RAW_FLIE_BASE64)
+        DATA_LAST_RAW_FILE = base64_decoder(DATA_LAST_RAW_FILE_BASE64)
+        DATA_LAST_FILE = DATA_LAST_RAW_FILE.split(",")
         fo.close()
     except:
         print("Warning do not cheat to add score by your self.")
         clearScore()
     try:
-        saveScore = int(DATA_LAST_RAW_FLIE)
+        DATA_ALL_TIME_PLAY = int(DATA_LAST_FILE[0])
+        DATA_MY_SCORE = int(DATA_LAST_FILE[1])
+        DATA_MIN_RANDOM_NUMBER = int(DATA_LAST_FILE[2])
+        DATA_MAX_RANDOM_NUMBER = int(DATA_LAST_FILE[3])
+        return DATA_ALL_TIME_PLAY, DATA_MY_SCORE, DATA_MIN_RANDOM_NUMBER, DATA_MAX_RANDOM_NUMBER
     except:
         print("Warning do not cheat to add score by your self.")
         clearScore()
+
+def setDataFile(newTimePlay, newScore, newMinRandomNumber, newMaxRandomNumber):
+    '''sent any type com=nvert to string to write files'''
+    ff = open("__pcf.conf", "w")
+    stringNewTimePlay = str(newTimePlay)
+    stringNewScore = str(newScore)
+    stringNewMinRandomNumber = str(newMinRandomNumber)
+    stringNewMaxRandomNumber = str(newMaxRandomNumber)
+    DATA_WRITE_TO_FLIE = stringNewTimePlay + "," + stringNewScore + "," + stringNewMinRandomNumber + "," + stringNewMaxRandomNumber
+    ff.write(base64_encoder(DATA_WRITE_TO_FLIE))
+    ff.close()
+
+def main():
+    '''main'''
+    os.system('cls')
+    allPlay, saveScore, minRandomNumber, maxRandomNumber = getDataFile()
+    print("You play thime game",allPlay,"Times")
     print("Last score is : ",saveScore)
+    print("diff min number is", minRandomNumber,"and max number is", maxRandomNumber)
     print("Welcome to program add math.")
-    print("\n\n press 1 = playgame\n\n press 2 = setup\n\n press 3 = credit\n\n press 0 = exit\n\n Sel : ",end = "")
+    print("\n press 1 = Playgame\n\n press 2 = Setup\n\n press 3 = Credit\n\n press 0 = exit\n\n Sel : ",end = "")
     modeInput = str(input())
     try:
         if modeInput == "1":
-            game(saveScore)
+            game()
             #game(timeOfPlay)
         elif modeInput == "2":
             setting()
