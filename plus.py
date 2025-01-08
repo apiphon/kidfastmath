@@ -134,16 +134,19 @@ def setMinNumber():
     print("\n** Set min number **\n")
     print("current min number is", mii)
     print("current max number is", mxx)
+    print("Enter value -1 to back")
     print("\nEnter value for min number : ", end = "")
     try:
         RAW_NEW_MIN_RANDOM = int(input())
-        if RAW_NEW_MIN_RANDOM > mxx:
+        if RAW_NEW_MIN_RANDOM > mxx or RAW_NEW_MIN_RANDOM < -1:
             print("min number cannot larger than max number\n enter value again")
             setMinNumber()
+        elif RAW_NEW_MIN_RANDOM == -1:
+            setting()
         else:
             newMinRandom = str(RAW_NEW_MIN_RANDOM)
             setDataFile(tim, scr, newMinRandom, mxx)
-            setting()
+            setMinNumber()
     except:
         print("invalid key")
         setMinNumber()
@@ -155,16 +158,19 @@ def setMaxNumber():
     print("\n** Set max number **\n")
     print("current min number is", mii)
     print("current max number is", mxx)
+    print("Enter value -1 to back")
     print("\nEnter value for max number : ", end = "")
     try:
         RAW_NEW_MAX_RANDOM = int(input())
-        if RAW_NEW_MAX_RANDOM < mii:
+        if RAW_NEW_MAX_RANDOM < mii and RAW_NEW_MAX_RANDOM != -1:
             print("min number cannot larger than max number\n enter value again")
             setMaxNumber()
+        elif RAW_NEW_MAX_RANDOM == -1:
+            setting()
         else:
             newMinRandom = str(RAW_NEW_MAX_RANDOM)
             setDataFile(tim, scr, mii, newMinRandom)
-            setting()
+            setMaxNumber()
     except:
         print("invalid key")
         setMaxNumber()
