@@ -1,10 +1,10 @@
 '''
 play this game tan play mobile game
-algo = readfiles get in vari and del files when answer write in files.
 '''
+
 import random
 import os
-from turtle import title
+
 '''const'''
 CURRENT_DIR = os.getcwd()
 CREDIT_NAME = "made by Apiphol Suwanchaisakul. full stack dev See https://github.com/apiphon for more information. "
@@ -36,7 +36,7 @@ def base64_encoder(plain_txt):
     }
     bin_txt = ''.join(format(ord(i), '08b') for i in plain_txt)
     if (len(bin_txt))%6:
-        bin_txt += "0"*(6-(len(bin_txt) % 6)) 
+        bin_txt += "0"*(6-(len(bin_txt) % 6))
     for i in range(0,len(bin_txt),6):
         enc_txt += (base64_char[bin_txt[i:i+6]])
     if len(enc_txt) %4:
@@ -253,7 +253,6 @@ def main():
     try:
         if modeInput == "1":
             game()
-            #game(timeOfPlay)
         elif modeInput == "2":
             setting()
         elif modeInput == "3":
