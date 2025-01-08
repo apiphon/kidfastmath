@@ -77,7 +77,8 @@ def base64_decoder(plain_txt):
 def game():
     '''input score'''
     os.system('cls')
-    while True:
+    answerInput = 2
+    while answerInput != -1:
         allPlay,correctAnswer,minRan,maxRan = getDataFile()
         inCorrectAnswer = (allPlay - correctAnswer)
         fristPara = random.randint(minRan,maxRan)
@@ -257,8 +258,9 @@ def main():
             setting()
         elif modeInput == "3":
             getCredit()
-        elif modeInput == "0":
+        elif modeInput == '0':
             print("bye see u again")
+            return 0
         else:
             os.system('cls')
             main()
