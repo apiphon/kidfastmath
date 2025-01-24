@@ -102,6 +102,7 @@ def gamePlus():
                 setDataFile(allPlay, correctAnswer, minRan, maxRan)
             elif answerInput == -1:
                 setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                os.system('cls')
                 main()
             else:
                 allPlay += 1
@@ -147,6 +148,47 @@ def gameMinus():
                 setDataFile(allPlay, correctAnswer, minRan, maxRan)
             elif answerInput == -1:
                 setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                os.system('cls')
+                main()
+            else:
+                allPlay += 1
+                print(" Wrong Answer!!!  Correct Answer Is : ",answerPara, end ="")
+                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+        except:
+            allPlay += 1
+            print(" Wrong Answer!!!  Correct Answer Is : ",answerPara)
+            setDataFile(allPlay, correctAnswer, minRan, maxRan)
+        print("\n *****************************************************************\n\n")
+
+def gameMultiply():
+    '''input score'''
+    os.system('cls')
+    answerInput = 2
+    while answerInput != -1:
+        allPlay,correctAnswer,minRan,maxRan = getDataFile()
+        inCorrectAnswer = (allPlay - correctAnswer)
+        fristPara = random.randint(minRan,maxRan)
+        secPara = random.randint(minRan,maxRan)
+        answerPara = fristPara * secPara
+        stringMinRan = str(minRan)
+        stringMaxRan = str(maxRan)
+        STRING_FOR_TITLE = "title Plus : min = "+stringMinRan+", max = "+stringMaxRan
+        os.system(STRING_FOR_TITLE)
+        print(" You have played", allPlay, "times.", sep = " ")
+        print(" Your Score Is : ",correctAnswer)
+        print(" You have answered incorrectly", inCorrectAnswer, "times")
+        print("\n ")
+        print(" ",fristPara,"*",secPara,"=",sep = " ", end = " ")
+        try:
+            answerInput = float(input())
+            if answerInput == answerPara:
+                allPlay += 1
+                correctAnswer += 1
+                print(" Correct Answer!!!", end ="")
+                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+            elif answerInput == -1:
+                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                os.system('cls')
                 main()
             else:
                 allPlay += 1
@@ -294,7 +336,7 @@ def main():
     print(" diff min number is", minRandomNumber,"and max number is", maxRandomNumber)
     print("\n Welcome to program kid fast ( VER",VER_NAME,")")
     print("\n ** main menu **\n")
-    print("\n press 1 = Game Plus Number\n\n press 2 = Game Minus Number\n\n press 3 = Setup\n\n press 4 = Credit\n\n press 0 = exit\n\n Sel : ",end = "")
+    print("\n press 1 = Game Plus Number\n\n press 2 = Game Minus Number\n\n press 3 = Game Multiply\n\n press 4 = Setup\n\n press 5 = Credit\n\n press 0 = exit\n\n Sel : ",end = "")
     os.system("title Welcome")
     modeInput = str(input())
     try:
@@ -303,8 +345,10 @@ def main():
         elif modeInput == "2":
             gameMinus()
         elif modeInput == "3":
-            setting()
+            gameMultiply()
         elif modeInput == "4":
+            setting()
+        elif modeInput == "5":
             getCredit()
         elif modeInput == '0':
             print("bye see u again")
