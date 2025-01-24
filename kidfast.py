@@ -2,15 +2,19 @@
 play this game tan play mobile game
 '''
 
+import requests
 import random
 import os
+import time
 
 '''const'''
+URL_REQUEST_LINE_API = 'https://notify-api.line.me/api/notify'
+TOKEN_LINE_API = 'a7WKDmV8TpJdpO5Vi8eJ0f2iA5VMQfY1BFfqY6NxWTu' #warning api end 1 april 2025
 CURRENT_DIR = os.getcwd()
 CREDIT_NAME = "made by Apiphol Suwanchaisakul. full stack dev See https://github.com/apiphon for more information. "
 COPYRIGHT_NAME = "Copyright (c) 20xx ApiphonTutor00.org."
-VER_NAME = "1.3.1"
-DATE_LAST_EDIT = "08-01-2025"
+VER_NAME = "1.4.1"
+DATE_LAST_EDIT = "24-01-2025"
 
 def base64_encoder(plain_txt):
     '''input text output base64'''
@@ -204,7 +208,7 @@ def setting():
     '''now clearScore del files'''
     os.system('cls')
     os.system("title Setup")
-    print("\n press 1 to clear score\n\n press 2 to set diff min number\n\n press 3 to set diff max number \n\n press 0 to back to main menu")
+    print("\n press 1 to clear score\n\n press 2 to set diff min number\n\n press 3 to set diff max number \n\n press 4 to sent score to p'Tee\n\n press 0 to back to main menu")
     print("\n\n Sel : ", end ="")
     settingInput = str(input())
     if settingInput == "1":
@@ -213,6 +217,8 @@ def setting():
         setMinNumber()
     elif settingInput == "3":
         setMaxNumber()
+    elif settingInput == "4":
+        sentDataToLine()
     else:
         main()
 
@@ -317,6 +323,7 @@ def setDataFile(newTimePlay, newScore, newMinRandomNumber, newMaxRandomNumber):
     ff.close()
 
 def getCredit():
+    '''print credit name'''
     os.system('cls')
     os.system("title getCredit")
     print("\n ** credit and copyright **")
@@ -325,6 +332,24 @@ def getCredit():
     print(" Press ENTER key to continue . . .")
     _ = str(input())
     main()
+
+def sentDataToLine():
+    '''sent data to me'''
+    os.system('cls')
+    os.system("title sentDataToLine")
+    print("Enter your name : ",end = "")
+    nameStd = str(input())
+    HEADERS = {'content-type':'application/x-www-form-urlencoded','Authorization':'Bearer '+TOKEN_LINE_API}
+    P_DATA_ALL_TIME_PLAY, P_DATA_MY_SCORE, P_DATA_MIN_RANDOM_NUMBER, P_DATA_MAX_RANDOM_NUMBER = getDataFile()
+    incorrectAnswer = P_DATA_ALL_TIME_PLAY - P_DATA_MY_SCORE
+    stringReportNameHeader = "Data of player : "+nameStd
+    stringReportTotalPlay = "player play game" + str(P_DATA_ALL_TIME_PLAY) + " times"
+    stringReportTotalScore = ""
+    stringReportTotalIncorrect = ""
+    stringReportMinMax = ""
+    TEXT_SENT_TO_LINE = "** Report **\n\ndata of player " +nameStd + " \n\n player 'XXX' play : " + str(P_DATA_ALL_TIME_PLAY) + " times \n Score of player 'XXX' is : "+ str(P_DATA_MY_SCORE) + "\n inCorrect of player 'XXX' is : " + str(incorrectAnswer) + "\n\nconf min and max is" + str(P_DATA_MIN_RANDOM_NUMBER) + str(P_DATA_MAX_RANDOM_NUMBER)
+    _ = requests.post(URL_REQUEST_LINE_API, headers=HEADERS, data = {'message':TEXT_SENT_TO_LINE})
+    setting()
 
 def main():
     '''main'''
