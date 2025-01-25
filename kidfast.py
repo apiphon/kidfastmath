@@ -347,7 +347,7 @@ def sentDataToLine():
     stringReportTotalScore = ""
     stringReportTotalIncorrect = ""
     stringReportMinMax = ""
-    TEXT_SENT_TO_LINE = "** Report **\n\ndata of player " +nameStd + " \n\n player 'XXX' play : " + str(P_DATA_ALL_TIME_PLAY) + " times \n Score of player 'XXX' is : "+ str(P_DATA_MY_SCORE) + "\n inCorrect of player 'XXX' is : " + str(incorrectAnswer) + "\n\nconf min and max is" + str(P_DATA_MIN_RANDOM_NUMBER) + str(P_DATA_MAX_RANDOM_NUMBER)
+    TEXT_SENT_TO_LINE = "** Report **\n\ndata of player " +nameStd + " \n\n player 'XXX' play : " + str(P_DATA_ALL_TIME_PLAY) + " times \n Score of player 'XXX' is : "+ str(P_DATA_MY_SCORE) + "\n inCorrect of player 'XXX' is : " + str(incorrectAnswer) + "\n\nconf : min = " + str(P_DATA_MIN_RANDOM_NUMBER) + ", max = " + str(P_DATA_MAX_RANDOM_NUMBER)
     _ = requests.post(URL_REQUEST_LINE_API, headers=HEADERS, data = {'message':TEXT_SENT_TO_LINE})
     setting()
 
