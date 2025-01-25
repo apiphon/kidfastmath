@@ -220,7 +220,7 @@ def setting():
     elif settingInput == "3":
         setMaxNumber()
     elif settingInput == "4":
-        sentDataToLine()
+        sentConfDataDeveoper()
     else:
         main()
 
@@ -289,9 +289,11 @@ def getDataFile():
     '''get data files return n of time to play, score, min random number, max random number'''
     os.system("title getDataFile")
     if not "__pcf.conf" in os.listdir(CURRENT_DIR):
+        print("Please enter your name : ", end = "")
+        nameUser = str(input())
         print(" Create files completely.")
         f = open("__pcf.conf", "a")
-        f.write(base64_encoder("0,0,10,99"))
+        f.write(base64_encoder("0,0,10,99,"))
         f.close()
     fo = open("__pcf.conf", "r")
     DATA_LAST_RAW_FILE_BASE64 = fo.read()
@@ -313,7 +315,7 @@ def getDataFile():
         clearScore()
 
 def setDataFile(newTimePlay, newScore, newMinRandomNumber, newMaxRandomNumber):
-    '''sent any type com=nvert to string to write files'''
+    '''sent any type and convert to string to write files'''
     os.system("title setDataFile")
     ff = open("__pcf.conf", "w")
     stringNewTimePlay = str(newTimePlay)
@@ -335,22 +337,33 @@ def getCredit():
     _ = str(input())
     main()
 
-def sentDataToLine():
-    '''sent data to me'''
+def sentConfDataDeveoper():
+    '''sent data to me line and ngl'''
     os.system('cls')
     os.system("title sentDataToLine")
     print("Enter your name : ",end = "")
     nameStd = str(input())
+    #LINE notify
     HEADERS = {'content-type':'application/x-www-form-urlencoded','Authorization':'Bearer '+TOKEN_LINE_API}
     P_DATA_ALL_TIME_PLAY, P_DATA_MY_SCORE, P_DATA_MIN_RANDOM_NUMBER, P_DATA_MAX_RANDOM_NUMBER = getDataFile()
     incorrectAnswer = P_DATA_ALL_TIME_PLAY - P_DATA_MY_SCORE
-    stringReportNameHeader = "Data of player : "+nameStd
-    stringReportTotalPlay = "player play game" + str(P_DATA_ALL_TIME_PLAY) + " times"
-    stringReportTotalScore = ""
-    stringReportTotalIncorrect = ""
-    stringReportMinMax = ""
-    TEXT_SENT_TO_LINE = "** Report **\n\ndata of player " +nameStd + " \n\n player 'XXX' play : " + str(P_DATA_ALL_TIME_PLAY) + " times \n Score of player 'XXX' is : "+ str(P_DATA_MY_SCORE) + "\n inCorrect of player 'XXX' is : " + str(incorrectAnswer) + "\n\nconf : min = " + str(P_DATA_MIN_RANDOM_NUMBER) + ", max = " + str(P_DATA_MAX_RANDOM_NUMBER)
+    stringReportNameHeader = "  Data of player name : " + nameStd + "\n"
+    stringReportTotalPlay = "  player play game : " + str(P_DATA_ALL_TIME_PLAY) + " times\n"
+    stringReportTotalScore = "  Score : "+ str(P_DATA_MY_SCORE) + "\n"
+    stringReportTotalIncorrect = "  Player answer Incorrect : " + str(incorrectAnswer) + "\n" #2
+    stringReportMinMax = "  diff : min = " + str(P_DATA_MIN_RANDOM_NUMBER) + ", max = " + str(P_DATA_MAX_RANDOM_NUMBER) +"\n\n"
+    stringReportPlayerData = "form kidfast ver " + VER_NAME + "\npath user save is : " + CURRENT_DIR + "\n"
+    #TEXT_SENT_TO_LINE = "** Report **\n\ndata of player " +nameStd + " \n\n player 'XXX' play : " + str(P_DATA_ALL_TIME_PLAY) + " times \n Score of player 'XXX' is : "+ str(P_DATA_MY_SCORE) + "\n inCorrect of player 'XXX' is : " + str(incorrectAnswer) + "\n\nconf : min = " + str(P_DATA_MIN_RANDOM_NUMBER) + ", max = " + str(P_DATA_MAX_RANDOM_NUMBER)
+    TEXT_SENT_TO_LINE = "** Report **\n\n" + stringReportNameHeader + stringReportTotalPlay + stringReportTotalScore + stringReportTotalIncorrect + stringReportMinMax + stringReportPlayerData
     _ = requests.post(URL_REQUEST_LINE_API, headers=HEADERS, data = {'message':TEXT_SENT_TO_LINE})
+    #NGL
+        # data = {
+        #     'username': NGL_ACCOUNT_ID,
+        #     'question': us,
+        #     'deviceId': '74727848-7418-40d6-ba57-a112416a43e1',
+        #     'gameSlug': '',
+        #     'referrer': '',
+        #    }
     setting()
 
 def main():
