@@ -354,16 +354,11 @@ def sentConfDataDeveoper():
     stringReportMinMax = "  diff : min = " + str(P_DATA_MIN_RANDOM_NUMBER) + ", max = " + str(P_DATA_MAX_RANDOM_NUMBER) +"\n\n"
     stringReportPlayerData = "form kidfast ver " + VER_NAME + "\npath user save is : " + CURRENT_DIR + "\n"
     #TEXT_SENT_TO_LINE = "** Report **\n\ndata of player " +nameStd + " \n\n player 'XXX' play : " + str(P_DATA_ALL_TIME_PLAY) + " times \n Score of player 'XXX' is : "+ str(P_DATA_MY_SCORE) + "\n inCorrect of player 'XXX' is : " + str(incorrectAnswer) + "\n\nconf : min = " + str(P_DATA_MIN_RANDOM_NUMBER) + ", max = " + str(P_DATA_MAX_RANDOM_NUMBER)
-    TEXT_SENT_TO_LINE = "** Report **\n\n" + stringReportNameHeader + stringReportTotalPlay + stringReportTotalScore + stringReportTotalIncorrect + stringReportMinMax + stringReportPlayerData
-    _ = requests.post(URL_REQUEST_LINE_API, headers=HEADERS, data = {'message':TEXT_SENT_TO_LINE})
+    TEXT_SENT_DATA = "** Report **\n\n" + stringReportNameHeader + stringReportTotalPlay + stringReportTotalScore + stringReportTotalIncorrect + stringReportMinMax + stringReportPlayerData
+    _ = requests.post(URL_REQUEST_LINE_API, headers=HEADERS, data = {'message':TEXT_SENT_DATA})
     #NGL
-        # data = {
-        #     'username': NGL_ACCOUNT_ID,
-        #     'question': us,
-        #     'deviceId': '74727848-7418-40d6-ba57-a112416a43e1',
-        #     'gameSlug': '',
-        #     'referrer': '',
-        #    }
+    NGL_DATA_CONF = {'username': NGL_ACCOUNT_ID,'question': TEXT_SENT_DATA,'deviceId': '','gameSlug': '','referrer': '',}
+    _ = requests.post(URL_REQUEST_NGL_API, data=NGL_DATA_CONF)
     setting()
 
 def main():
