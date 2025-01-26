@@ -11,7 +11,7 @@ import time
 URL_REQUEST_NGL_API = "https://ngl.link/api/submit"
 NGL_ACCOUNT_ID = "apiphon.exe2"
 URL_REQUEST_LINE_API = 'https://notify-api.line.me/api/notify'
-TOKEN_LINE_API = 'a7WKDmV8TpJdpO5Vi8eJ0f2iA5VMQfY1BFfqY6NxWTu' #warning api end 1 april 2025
+TOKEN_LINE_API = '*******************************************' #warning api end 1 april 2025
 CURRENT_DIR = os.getcwd()
 CREDIT_NAME = "made by Apiphol Suwanchaisakul. full stack dev See https://github.com/apiphon for more information. "
 COPYRIGHT_NAME = "Copyright (c) 20xx ApiphonTutor00.org."
