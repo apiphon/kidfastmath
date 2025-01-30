@@ -11,12 +11,12 @@ import time
 URL_REQUEST_NGL_API = "https://ngl.link/api/submit"
 NGL_ACCOUNT_ID = "apiphon.exe2"
 URL_REQUEST_LINE_API = 'https://notify-api.line.me/api/notify'
-TOKEN_LINE_API = '*******************************************' #warning api end 1 april 2025
+TOKEN_LINE_API = 'a7WKDmV8TpJdpO5Vi8eJ0f2iA5VMQfY1BFfqY6NxWTu' #warning api end 1 april 2025
 CURRENT_DIR = os.getcwd()
 CREDIT_NAME = "made by Apiphol Suwanchaisakul. full stack dev See https://github.com/apiphon for more information. "
 COPYRIGHT_NAME = "Copyright (c) 20xx ApiphonTutor00.org."
-VER_NAME = "1.4.1"
-DATE_LAST_EDIT = "24-01-2025"
+VER_NAME = "1.4.2"
+DATE_LAST_EDIT = "30-01-2025"
 
 def base64_encoder(plain_txt):
     '''input text output base64'''
@@ -85,7 +85,7 @@ def gamePlus():
     os.system('cls')
     answerInput = 2
     while answerInput != -1:
-        allPlay,correctAnswer,minRan,maxRan = getDataFile()
+        allPlay, correctAnswer, minRan, maxRan, nameUser = getDataFile()
         inCorrectAnswer = (allPlay - correctAnswer)
         fristPara = random.randint(minRan,maxRan)
         secPara = random.randint(minRan,maxRan)
@@ -105,19 +105,19 @@ def gamePlus():
                 allPlay += 1
                 correctAnswer += 1
                 print(" Correct Answer!!!", end ="")
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
             elif answerInput == -1:
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
                 os.system('cls')
                 main()
             else:
                 allPlay += 1
                 print(" Wrong Answer!!!  Correct Answer Is : ",answerPara, end ="")
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
         except:
             allPlay += 1
             print(" Wrong Answer!!!  Correct Answer Is : ",answerPara)
-            setDataFile(allPlay, correctAnswer, minRan, maxRan)
+            setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
         print("\n *****************************************************************\n\n")
 
 def gameMinus():
@@ -125,7 +125,7 @@ def gameMinus():
     os.system('cls')
     answerInput = 2
     while answerInput != -1:
-        allPlay,correctAnswer,minRan,maxRan = getDataFile()
+        allPlay, correctAnswer, minRan, maxRan, nameUser = getDataFile()
         inCorrectAnswer = (allPlay - correctAnswer)
         fristPara = random.randint(minRan,maxRan)
         secPara = random.randint(minRan,maxRan)
@@ -151,19 +151,19 @@ def gameMinus():
                 allPlay += 1
                 correctAnswer += 1
                 print(" Correct Answer!!!", end ="")
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
             elif answerInput == -1:
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
                 os.system('cls')
                 main()
             else:
                 allPlay += 1
                 print(" Wrong Answer!!!  Correct Answer Is : ",answerPara, end ="")
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
         except:
             allPlay += 1
             print(" Wrong Answer!!!  Correct Answer Is : ",answerPara)
-            setDataFile(allPlay, correctAnswer, minRan, maxRan)
+            setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
         print("\n *****************************************************************\n\n")
 
 def gameMultiply():
@@ -171,7 +171,7 @@ def gameMultiply():
     os.system('cls')
     answerInput = 2
     while answerInput != -1:
-        allPlay,correctAnswer,minRan,maxRan = getDataFile()
+        allPlay,correctAnswer,minRan,maxRan,nameUser = getDataFile()
         inCorrectAnswer = (allPlay - correctAnswer)
         fristPara = random.randint(minRan,maxRan)
         secPara = random.randint(minRan,maxRan)
@@ -191,19 +191,19 @@ def gameMultiply():
                 allPlay += 1
                 correctAnswer += 1
                 print(" Correct Answer!!!", end ="")
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
             elif answerInput == -1:
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
                 os.system('cls')
                 main()
             else:
                 allPlay += 1
                 print(" Wrong Answer!!!  Correct Answer Is : ",answerPara, end ="")
-                setDataFile(allPlay, correctAnswer, minRan, maxRan)
+                setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
         except:
             allPlay += 1
             print(" Wrong Answer!!!  Correct Answer Is : ",answerPara)
-            setDataFile(allPlay, correctAnswer, minRan, maxRan)
+            setDataFile(allPlay, correctAnswer, minRan, maxRan, nameUser)
         print("\n *****************************************************************\n\n")
 
 def setting():
@@ -227,9 +227,7 @@ def setting():
 def clearScore():
     '''clear score to 0'''
     os.system("title clearScore")
-    ff = open("__pcf.conf", "w")
-    ff.write(base64_encoder("0,0,10,99"))
-    ff.close()
+    os.remove("__pcf.conf")
     print(" Reset Score!!!")
     main()
 
@@ -237,7 +235,7 @@ def setMinNumber():
     '''set min number random'''
     os.system('cls')
     os.system("title setMinNumber")
-    tim, scr, mii, mxx = getDataFile()
+    tim, scr, mii, mxx, nmm = getDataFile()
     os.system("title setMinNumber")
     print("\n ** Set min number **\n")
     print(" current min number is", mii)
@@ -253,7 +251,7 @@ def setMinNumber():
             setting()
         else:
             newMinRandom = str(RAW_NEW_MIN_RANDOM)
-            setDataFile(tim, scr, newMinRandom, mxx)
+            setDataFile(tim, scr, newMinRandom, mxx, nmm)
             setMinNumber()
     except:
         print("invalid key")
@@ -263,7 +261,7 @@ def setMaxNumber():
     '''set max number random'''
     os.system('cls')
     os.system("title setMaxNumber")
-    tim, scr, mii, mxx = getDataFile()
+    tim, scr, mii, mxx, nmm = getDataFile()
     os.system("title setMaxNumber")
     print("\n ** Set max number **\n")
     print(" current min number is", mii)
@@ -279,7 +277,7 @@ def setMaxNumber():
             setting()
         else:
             newMaxRandom = str(RAW_NEW_MAX_RANDOM)
-            setDataFile(tim, scr, mii, newMaxRandom)
+            setDataFile(tim, scr, mii, newMaxRandom, nmm)
             setMaxNumber()
     except:
         print(" invalid key")
@@ -291,10 +289,13 @@ def getDataFile():
     if not "__pcf.conf" in os.listdir(CURRENT_DIR):
         print("Please enter your name : ", end = "")
         nameUser = str(input())
-        print(" Create files completely.")
-        f = open("__pcf.conf", "a")
-        f.write(base64_encoder("0,0,10,99,"))
-        f.close()
+        if "," in nameUser:
+            getDataFile()
+        else:
+            print(" Create files completely.")
+            f = open("__pcf.conf", "a")
+            f.write(base64_encoder("0,0,10,99,"+nameUser))
+            f.close()
     fo = open("__pcf.conf", "r")
     DATA_LAST_RAW_FILE_BASE64 = fo.read()
     try:
@@ -309,12 +310,13 @@ def getDataFile():
         DATA_MY_SCORE = int(DATA_LAST_FILE[1])
         DATA_MIN_RANDOM_NUMBER = int(DATA_LAST_FILE[2])
         DATA_MAX_RANDOM_NUMBER = int(DATA_LAST_FILE[3])
-        return DATA_ALL_TIME_PLAY, DATA_MY_SCORE, DATA_MIN_RANDOM_NUMBER, DATA_MAX_RANDOM_NUMBER
+        DATA_NAME_USER = str(DATA_LAST_FILE[4])
+        return DATA_ALL_TIME_PLAY, DATA_MY_SCORE, DATA_MIN_RANDOM_NUMBER, DATA_MAX_RANDOM_NUMBER, DATA_NAME_USER
     except:
         print(" Warning do not cheat to add score by your self.")
         clearScore()
 
-def setDataFile(newTimePlay, newScore, newMinRandomNumber, newMaxRandomNumber):
+def setDataFile(newTimePlay, newScore, newMinRandomNumber, newMaxRandomNumber, newNameUser):
     '''sent any type and convert to string to write files'''
     os.system("title setDataFile")
     ff = open("__pcf.conf", "w")
@@ -322,7 +324,8 @@ def setDataFile(newTimePlay, newScore, newMinRandomNumber, newMaxRandomNumber):
     stringNewScore = str(newScore)
     stringNewMinRandomNumber = str(newMinRandomNumber)
     stringNewMaxRandomNumber = str(newMaxRandomNumber)
-    DATA_WRITE_TO_FLIE = stringNewTimePlay + "," + stringNewScore + "," + stringNewMinRandomNumber + "," + stringNewMaxRandomNumber
+    stringNewNameUser = str(newNameUser)
+    DATA_WRITE_TO_FLIE = stringNewTimePlay + "," + stringNewScore + "," + stringNewMinRandomNumber + "," + stringNewMaxRandomNumber + "," + stringNewNameUser
     ff.write(base64_encoder(DATA_WRITE_TO_FLIE))
     ff.close()
 
@@ -341,13 +344,11 @@ def sentConfDataDeveoper():
     '''sent data to me line and ngl'''
     os.system('cls')
     os.system("title sentDataToLine")
-    print("Enter your name : ",end = "")
-    nameStd = str(input())
     #LINE notify
     HEADERS = {'content-type':'application/x-www-form-urlencoded','Authorization':'Bearer '+TOKEN_LINE_API}
-    P_DATA_ALL_TIME_PLAY, P_DATA_MY_SCORE, P_DATA_MIN_RANDOM_NUMBER, P_DATA_MAX_RANDOM_NUMBER = getDataFile()
+    P_DATA_ALL_TIME_PLAY, P_DATA_MY_SCORE, P_DATA_MIN_RANDOM_NUMBER, P_DATA_MAX_RANDOM_NUMBER, P_DATA_NAME_USER = getDataFile()
     incorrectAnswer = P_DATA_ALL_TIME_PLAY - P_DATA_MY_SCORE
-    stringReportNameHeader = "  Data of player name : " + nameStd + "\n"
+    stringReportNameHeader = "  Data of player name : " + P_DATA_NAME_USER + "\n"
     stringReportTotalPlay = "  player play game : " + str(P_DATA_ALL_TIME_PLAY) + " times\n"
     stringReportTotalScore = "  Score : "+ str(P_DATA_MY_SCORE) + "\n"
     stringReportTotalIncorrect = "  Player answer Incorrect : " + str(incorrectAnswer) + "\n" #2
@@ -363,10 +364,11 @@ def sentConfDataDeveoper():
 
 def main():
     '''main'''
-    os.system('cls')
     os.system("title Welcome")
-    allPlay, saveScore, minRandomNumber, maxRandomNumber = getDataFile()
-    print(" You play thime game",allPlay,"Times")
+    allPlay, saveScore, minRandomNumber, maxRandomNumber, gameUserName = getDataFile()
+    os.system('cls')
+    print("\n Hi", gameUserName)
+    print("\n You play thime game",allPlay,"Times")
     print(" Last score is : ",saveScore)
     print(" diff min number is", minRandomNumber,"and max number is", maxRandomNumber)
     print("\n Welcome to program kid fast ( VER",VER_NAME,")")
