@@ -15,8 +15,8 @@ TOKEN_LINE_API = 'a7WKDmV8TpJdpO5Vi8eJ0f2iA5VMQfY1BFfqY6NxWTu' #warning api end 
 CURRENT_DIR = os.getcwd()
 CREDIT_NAME = "made by Apiphol Suwanchaisakul. full stack dev See https://github.com/apiphon for more information. "
 COPYRIGHT_NAME = "Copyright (c) 20xx ApiphonTutor00.org."
-VER_NAME = "1.4.2"
-DATE_LAST_EDIT = "30-01-2025"
+VER_NAME = "1.4.3"
+DATE_LAST_EDIT = "31-01-2025"
 
 def base64_encoder(plain_txt):
     '''input text output base64'''
@@ -302,6 +302,8 @@ def getDataFile():
         DATA_LAST_RAW_FILE = base64_decoder(DATA_LAST_RAW_FILE_BASE64)
         DATA_LAST_FILE = DATA_LAST_RAW_FILE.split(",")
         fo.close()
+        if len(DATA_LAST_FILE) == 4:
+            DATA_LAST_FILE = oldToNew(DATA_LAST_FILE)
     except:
         print(" Warning do not cheat to add score by your self.")
         clearScore()
@@ -362,6 +364,21 @@ def sentConfDataDeveoper():
     _ = requests.post(URL_REQUEST_NGL_API, data=NGL_DATA_CONF)
     setting()
 
+def oldToNew(OLD_DATA_LAST_FLIES):
+    oldTimePlay = OLD_DATA_LAST_FLIES[0]
+    oldMyScore = OLD_DATA_LAST_FLIES[1]
+    oldMinRandomNumber = OLD_DATA_LAST_FLIES[2]
+    oldMaxRandomNumber = OLD_DATA_LAST_FLIES[3]
+    print("Please enter your name : ", end = "")
+    newNameUser = str(input())
+    setDataFile(oldTimePlay, oldMyScore, oldMinRandomNumber, oldMaxRandomNumber, newNameUser)
+    OLD_DATA_LAST_FLIES.append(newNameUser)
+    return OLD_DATA_LAST_FLIES
+    main()
+
+def exitProgram():
+    print("bye see u again")
+
 def main():
     '''main'''
     os.system("title Welcome")
@@ -388,8 +405,7 @@ def main():
         elif modeInput == "5":
             getCredit()
         elif modeInput == '0':
-            print("bye see u again")
-            return 0
+            exitProgram()
         else:
             os.system('cls')
             main()
